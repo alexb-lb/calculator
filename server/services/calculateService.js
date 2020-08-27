@@ -2,7 +2,7 @@ const Big = require('big.js')
 
 /**
  * mathjs.evaluate cannot provide enough support to prevent injection attacks
- * thats why Big.js with explicit server-side sanitision was chosen
+ * thats why Big.js with explicit server-side sanitisation was chosen
  */
 const calculateService = {
   add(a, b) {
