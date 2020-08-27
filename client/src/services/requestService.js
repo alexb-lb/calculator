@@ -33,35 +33,3 @@ const RequestService = () => {
 }
 
 export default RequestService()
-
-
-// class RequestService {
-
-//   async request({ url, method = 'GET', data = null }) {
-//     try {
-//       const params = { ...this.params }
-
-//       if (method.toLowerCase() !== 'get') {
-//         params.method = 'POST'
-//         params.body = JSON.stringify(data)
-//       }
-
-//       if (setOnceToken) {
-//         params.headers = { ...params.headers, 'Authorization': `Bearer ${setOnceToken}` }
-//       }
-
-//       const serverResponse = await fetch(this.baseUrl + url, params)
-//       const [response, json] = await Promise.all([serverResponse, serverResponse.json()])
-
-//       if (!response.ok) return errorHandler(response)
-
-//       return json
-//     } catch (error) {
-//       alert(error.message)
-//       return {}
-//     }
-//   }
-// }
-
-// export default new RequestService()
-
