@@ -1,0 +1,23 @@
+{
+  "default": {
+    "protocol": "http",
+    "domain": "",
+    "logLevel": "info"
+  },
+  "development": {
+    "protocol": "http",
+    "domain": "localhost",
+    "port": 3000
+  },
+  "test": {
+    "protocol": "http",
+    "domain": "localhost",
+    "port": 3050
+  },
+  "production": {
+    "protocol": "http",
+    "domain": "136.243.10.80",
+    "port": 7050,
+    "logLevel": "error"
+  }
+}
