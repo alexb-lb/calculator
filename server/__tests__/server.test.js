@@ -3,6 +3,7 @@ const server = require('../server')
 
 afterAll(async () => await server.close())
 
+/** Client bundle must be builded to pass tests */
 describe('Get basic client bundle', () => {
   
   test('Should response with status 200 on base route: GET /', async () => {
