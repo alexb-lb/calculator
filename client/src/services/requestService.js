@@ -1,6 +1,26 @@
 import axios from 'axios'
 import requestErrorsMap from '../dictionaries/requestErrorsMap'
 
+const getErrorMessage = (error) => {
+  if (error.response) {
+    const { status, data } = error.response
+
+    if (data && data.message) {
+      return requestErrorsMap[data.message]
+    }
+
+    if (status === 404) {
+      return requestErrorsMap.NOT_FOUND
+    }
+  } 
+  
+  else if (error.request) {
+    return requestErrorsMap.NETWORK_ERROR 
+  }
+  
+  return requestErrorsMap.UNHANDLED_ERROR
+}
+
 const RequestService = () => {
   const defaultOptions = { method: 'get' }
   const baseUrl = process.env.BACKEND_URL + '/api'
@@ -14,19 +34,15 @@ const RequestService = () => {
       if (data) params.data = data
 
       try {
-        const response = await axios(params)
+        const { data } = await axios(params)
 
-        const data = response.data ? response.data : {}
+        if (!data || typeof data !== 'object' || data === null) {
+          throw new Error()
+        }
 
         return { success: true, data }
       } catch (error){
-        const errorKey = error.response?.data?.message ? error.response.data.message : error.message
-
-        const errorMessage = (errorKey in requestErrorsMap) 
-          ? requestErrorsMap[errorKey] 
-          : requestErrorsMap[requestErrorsMap.UNHANDLED_ERROR]
-
-        return { success: false, error: errorMessage }
+        return { success: false, error: getErrorMessage(error) }
       }
     }
   }
